@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.apilearning.MainViewModel
 import com.example.apilearning.R
 import com.example.apilearning.data.model.DrinkDetailModel
@@ -15,7 +16,6 @@ class RecyclerDrinkLayoutAdapter(
 
 
     var viewModelInstance = MainViewModel()
-    var drinksList = DrinkDetailModel()
 
     class DrinkLayoutViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         //handle individual UI elements and their settings
@@ -23,8 +23,14 @@ class RecyclerDrinkLayoutAdapter(
         // (in this case, "recycler_view_row)
         val binding = RecyclerViewRowBinding.bind(view)
 
-        fun setupUI(drinkName: String) {
-            binding.abbrevName.text = drinkName
+        fun setupUI(drinkName: String, drinkCategory: String, drinkImage: String) {
+            binding.fullName.text = drinkName
+            binding.abbrevName.text=drinkCategory
+            Glide.with(binding.root.context)
+                .load(drinkImage)
+                //.placeholder() what to display while image is loading
+                //.error() what to display when the image is not successfully retrieved
+                .into(binding.recycleViewImage)
         }
     }
 
@@ -44,8 +50,9 @@ class RecyclerDrinkLayoutAdapter(
         //position refers to what place the item is in the recycler
 
         //use an adapter here to do the API call?
-        holder.setupUI(drinksList.drinks?.get(position)?.strDrink.toString())
-        //holder.setupUI(drinkDetailModel.drinks.get(position))
+        holder.setupUI(drinkDetailModel.drinks?.get(position)?.strDrink.toString(),
+            drinkDetailModel.drinks?.get(position)?.strCategory.toString(),
+            drinkDetailModel.drinks?.get(position)?.strDrinkThumb.toString())
     }
 
 }

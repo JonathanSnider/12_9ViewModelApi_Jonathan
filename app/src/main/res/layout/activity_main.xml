@@ -36,7 +36,7 @@
         app:layout_constraintEnd_toStartOf="@+id/buttonPlus"
         app:layout_constraintStart_toEndOf="@+id/buttonMinus" />-->
 
-    <TextView
+    <!--  <TextView
         android:id="@+id/nameHolderTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_launcher_foreground" />
+        app:srcCompat="@drawable/ic_launcher_foreground" /> />-->
 
     <androidx.recyclerview.widget.RecyclerView
          android:id="@+id/recyclerViewDrinks"
