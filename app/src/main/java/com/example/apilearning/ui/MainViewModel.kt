@@ -1,11 +1,10 @@
-package com.example.apilearning
+package com.example.apilearning.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.apilearning.data.ResponseState
-import com.example.apilearning.data.api.DrinkApiClient
 import com.example.apilearning.data.repository.RepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

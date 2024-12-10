@@ -1,4 +1,4 @@
-package com.example.apilearning
+package com.example.apilearning.ui
 
 import android.os.Bundle
 import android.view.View
@@ -8,12 +8,12 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.apilearning.R
 import com.example.apilearning.adapters.RecyclerDrinkLayoutAdapter
 import com.example.apilearning.data.ResponseState
 import com.example.apilearning.data.model.DrinkDetailModel
 import com.example.apilearning.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
-import okhttp3.Response
 
 
 @AndroidEntryPoint

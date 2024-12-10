@@ -45,8 +45,6 @@ class RecyclerDrinkLayoutAdapter(
     override fun onBindViewHolder(holder: DrinkLayoutViewHolder, position: Int) {
         //handle the current item in the list
         //position refers to what place the item is in the recycler
-
-        //use an adapter here to do the API call?
         holder.setupUI(drinkDetailModel.drinks?.get(position)?.strDrink.toString(),
             drinkDetailModel.drinks?.get(position)?.strCategory.toString(),
             drinkDetailModel.drinks?.get(position)?.strDrinkThumb.toString())
