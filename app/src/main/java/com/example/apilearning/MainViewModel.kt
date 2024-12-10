@@ -6,9 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.apilearning.data.ResponseState
 import com.example.apilearning.data.api.RetrofitClient
-import com.example.apilearning.data.model.DrinkDetailModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.net.SocketTimeoutException
 
 class MainViewModel : ViewModel() {
     /*    //USED FOR VIEWMODEL EXAMPLE 1 --------------------
@@ -33,15 +32,21 @@ class MainViewModel : ViewModel() {
     val cocktails: LiveData<ResponseState> = _cocktails
     fun getDrinksList() {
         //loading state before coroutine is launched
-        _cocktails.postValue(ResponseState.Loading)
-        viewModelScope.launch() {
-            val result = RetrofitClient.apiInstance.getDrinks()
-            if (result.drinks.isNullOrEmpty()) {
-                _cocktails.postValue(ResponseState.Fail("Failed to retrieve from the API"))
-            } else {
-                _cocktails.value = ResponseState.Success(result)
+
+        try {
+            _cocktails.postValue(ResponseState.Loading)
+            viewModelScope.launch() {
+                val result = RetrofitClient.apiInstance.getDrinks()
+                if (result.drinks.isNullOrEmpty()) {
+                    _cocktails.postValue(ResponseState.Fail("Failed to retrieve from the API"))
+                } else {
+                    _cocktails.value = ResponseState.Success(result)
+                }
             }
-            //_cocktails.value=RetrofitClient.apiInstance.getDrinks()
+        } catch (e: SocketTimeoutException) {
+            _cocktails.postValue(ResponseState.Fail(e.message.toString()))
+        } catch (e: Exception){
+            _cocktails.postValue(ResponseState.Fail(e.message.toString()))
         }
     }
 
