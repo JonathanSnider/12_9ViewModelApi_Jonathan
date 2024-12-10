@@ -1,6 +1,7 @@
 package com.example.apilearning
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -8,8 +9,10 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.apilearning.adapters.RecyclerDrinkLayoutAdapter
+import com.example.apilearning.data.ResponseState
 import com.example.apilearning.data.model.DrinkDetailModel
 import com.example.apilearning.databinding.ActivityMainBinding
+import okhttp3.Response
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mainViewModelInstance: MainViewModel
@@ -28,24 +31,47 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         mainViewModelInstance.cocktails.observe(this) { value ->
-            println("VALUE: $value")
             //THE RESULT MUST BE SENT TO A SEPARATE FUNCTION TO ENSURE THE RESULT FROM THE
             //ASYNC FUNCTION CALL IS ACTUALLY RECEIVED BEFORE SUPPLYING IT TO THE RECYCLE VIEW
-            updateDrinksList(value)
+            when(value){
+                is ResponseState.Loading -> updateDrinksListLoading()
+                is ResponseState.Success -> updateDrinksListSuccess(value.result)
+                is ResponseState.Fail -> updateDrinksListFail(value.failureString)
+            }
 
+            //updateDrinksList(value)
         }
         mainViewModelInstance.getDrinksList()
 
 
+
     }
 
-    private fun updateDrinksList(value: DrinkDetailModel)
+
+    private fun updateDrinksListLoading(){
+        binding.apply {
+            dataImageView.setImageResource(R.drawable.ic_gear)
+            statusTextView.text=("Loading...")
+        }
+    }
+    private fun updateDrinksListFail(error: String){
+        binding.apply {
+            dataImageView.setImageResource(R.drawable.ic_cancel)
+            statusTextView.text=(error)
+        }
+    }
+    private fun updateDrinksListSuccess(value: DrinkDetailModel)
     {
+        binding.apply {
+            dataImageView.visibility= View.GONE
+            statusTextView.visibility=View.GONE
+        }
         binding.recyclerViewDrinks.apply {
             //vertical by default
             layoutManager = LinearLayoutManager(context)
             adapter = RecyclerDrinkLayoutAdapter(value)
         }
     }
+
 }
 

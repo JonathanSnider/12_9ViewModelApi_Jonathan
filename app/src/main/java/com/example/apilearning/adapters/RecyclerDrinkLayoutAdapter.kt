@@ -28,7 +28,7 @@ class RecyclerDrinkLayoutAdapter(
             binding.abbrevName.text=drinkCategory
             Glide.with(binding.root.context)
                 .load(drinkImage)
-                //.placeholder() what to display while image is loading
+                .placeholder(R.drawable.ic_launcher_background) //what to display while image is loading
                 //.error() what to display when the image is not successfully retrieved
                 .into(binding.recycleViewImage)
         }
