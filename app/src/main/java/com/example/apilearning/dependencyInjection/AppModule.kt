@@ -1,6 +1,6 @@
 package com.example.apilearning.dependencyInjection
 
-import com.example.apilearning.data.api.APIClient
+import com.example.apilearning.data.api.DrinkApiClient
 import com.example.apilearning.data.api.APIDetails
 import com.google.gson.Gson
 import dagger.Module
@@ -9,7 +9,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -49,7 +48,7 @@ class AppModule {
     @Provides
     fun provideAPIClient(
         retrofit: Retrofit
-    ): APIClient {
-        return retrofit.create(APIClient::class.java)
+    ): DrinkApiClient {
+        return retrofit.create(DrinkApiClient::class.java)
     }
 }

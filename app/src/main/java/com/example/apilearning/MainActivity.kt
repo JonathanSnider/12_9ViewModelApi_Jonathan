@@ -41,8 +41,6 @@ class MainActivity : AppCompatActivity() {
                 is ResponseState.Success -> updateDrinksListSuccess(value.result)
                 is ResponseState.Fail -> updateDrinksListFail(value.failureString)
             }
-
-            //updateDrinksList(value)
         }
         mainViewModelInstance.getDrinksList()
 
