@@ -12,14 +12,17 @@ import com.example.apilearning.adapters.RecyclerDrinkLayoutAdapter
 import com.example.apilearning.data.ResponseState
 import com.example.apilearning.data.model.DrinkDetailModel
 import com.example.apilearning.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.Response
 
+
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var mainViewModelInstance: MainViewModel
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
-        mainViewModelInstance = ViewModelProvider(this).get(MainViewModel::class.java)
         super.onCreate(savedInstanceState)
+        mainViewModelInstance = ViewModelProvider(this).get(MainViewModel::class.java)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->

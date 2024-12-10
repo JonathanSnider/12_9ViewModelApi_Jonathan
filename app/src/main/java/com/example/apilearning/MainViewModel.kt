@@ -5,11 +5,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.apilearning.data.ResponseState
+import com.example.apilearning.data.api.APIClient
 import com.example.apilearning.data.api.RetrofitClient
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.net.SocketTimeoutException
+import javax.inject.Inject
 
-class MainViewModel : ViewModel() {
+@HiltViewModel
+class MainViewModel @Inject constructor(
+val apiClient: APIClient
+) : ViewModel() {
     /*    //USED FOR VIEWMODEL EXAMPLE 1 --------------------
        private val _counterValue = MutableLiveData<Int>().apply {
             value = 0
@@ -36,7 +42,7 @@ class MainViewModel : ViewModel() {
         try {
             _cocktails.postValue(ResponseState.Loading)
             viewModelScope.launch() {
-                val result = RetrofitClient.apiInstance.getDrinks()
+                val result = apiClient.getDrinks()
                 if (result.drinks.isNullOrEmpty()) {
                     _cocktails.postValue(ResponseState.Fail("Failed to retrieve from the API"))
                 } else {
@@ -45,7 +51,7 @@ class MainViewModel : ViewModel() {
             }
         } catch (e: SocketTimeoutException) {
             _cocktails.postValue(ResponseState.Fail(e.message.toString()))
-        } catch (e: Exception){
+        } catch (e: Exception) {
             _cocktails.postValue(ResponseState.Fail(e.message.toString()))
         }
     }

@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.apilearning.MainViewModel
 import com.example.apilearning.R
 import com.example.apilearning.data.model.DrinkDetailModel
 import com.example.apilearning.databinding.RecyclerViewRowBinding
@@ -14,8 +13,6 @@ class RecyclerDrinkLayoutAdapter(
     private val drinkDetailModel: DrinkDetailModel
 ) : RecyclerView.Adapter<RecyclerDrinkLayoutAdapter.DrinkLayoutViewHolder>() {
 
-
-    var viewModelInstance = MainViewModel()
 
     class DrinkLayoutViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         //handle individual UI elements and their settings
