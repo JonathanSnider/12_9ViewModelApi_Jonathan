@@ -15,21 +15,6 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     val repositoryImpl: RepositoryImpl
 ) : ViewModel() {
-    /*    //USED FOR VIEWMODEL EXAMPLE 1 --------------------
-       private val _counterValue = MutableLiveData<Int>().apply {
-            value = 0
-        }
-        val counterValue: LiveData<Int> = _counterValue
-
-        fun addValue(valueToAdd: Int){
-            _counterValue.value=_counterValue.value?.toInt()?.plus(valueToAdd)
-        }
-
-        fun subtractValue(valueToSubtract: Int){
-            _counterValue.value=_counterValue.value?.toInt()?.minus(valueToSubtract)
-
-        }
-        //-------------------------*/
 
     private val _cocktails: MutableLiveData<ResponseState> by lazy {
         MutableLiveData<ResponseState>()
